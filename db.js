@@ -18,8 +18,7 @@ const config = {
     }
 }
 
-const db = new Client(config[dbENV]);
-db.connect();
+const db = new Pool(config[dbENV]);
 
 module.exports = db;
 
