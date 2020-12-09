@@ -1,0 +1,100 @@
+{% extends "base.njk" %}
+
+{% block metaStuff%}
+	<title>Search Result</title>
+	<link href="giftee.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block main%}
+<section class="main-content content-2">
+	<div class="btn-type1" onclick="copyGiftListLink()">Share {{username}}'s Gift List Link</div>
+</section>
+<section class="main-content content-4">
+	<h1>{{username}}'s Gift List</h1>
+	<div class="gift-list gift-list-public">
+		{% for i in range(0, giftList.length) -%}
+			<div class="gift gift-public">
+				<i class="far fa-arrow-alt-circle-down openGiftButton" onclick="openGift({{i}}); toggleImage({{i}})"></i>
+				<h2>
+                    {% if giftList[i].itemName == ""%}
+                        GIFT
+                    {% else %}
+                        {{giftList[i].itemName}}
+                    {% endif %}
+				</h2>
+				<div class="gift-content gift-content-public">
+					<div class="input-box">
+						<input type="text" class="input-name" value="{{giftList[i].notes}}" readonly>
+						<label>NOTES</label>
+					</div>
+					<div class="input-box">
+						<input type="text" class="input-name" value="{{giftList[i].price}}" readonly>
+						<label>PRICE</label>
+					</div>
+					<div class="input-box">
+						<input type="text" class="input-name" value="{{giftList[i].quantity}}" readonly>
+						<label>QUANTITY</label>
+					</div>
+					<div class="input-box">
+						<input type="text" class="input-name" value="{{giftList[i].size}}" readonly>
+						<label>SIZE</label>
+					</div>
+					{% if giftList[i].storeLink == "" or giftList[i].storeLink == "Invalid Url was submitted" %}
+						<div class="btn-type2"><del>BUY</del></div>
+					{% else %}
+						<a class="btn-type1" href="{{giftList[i].storeLink}}" target="_blank">BUY</a>
+					{% endif%}
+				</div>
+			</div>
+		{%- endfor %}
+	</div>
+</section>
+{% endblock %}
+
+{% block script %}
+<script>
+	var publicGiftList = document.getElementsByClassName("gift-list-public")[0];
+	var publicGifts = publicGiftList.getElementsByClassName("gift-public");
+	function openGift(index) {
+		let giftContent = publicGifts[index].getElementsByClassName("gift-content")[0];
+		let currGift = publicGifts[index];
+		let giftContentHeight = giftContent.scrollHeight;
+		let currGiftHeight = currGift.scrollHeight;
+		currGift.style.height = currGiftHeight;
+		if(giftContent.style.visibility === "visible") {   // close the form
+			let newHeight = currGiftHeight - giftContentHeight;
+			giftContent.style.transition = "0s";
+			giftContent.style.opacity = 0;
+			giftContent.style.visibility = "hidden";
+			currGift.style.height = `${newHeight}px`;
+		} else {    // open the form
+			let newHeight = currGiftHeight;
+			currGift.style.height = `${newHeight}px`;
+			giftContent.style.transition = "2s ease";
+			giftContent.style.opacity = 1;
+			giftContent.style.visibility = "visible";
+		}
+	}
+
+	function toggleImage(index, privacy) {
+        let openGiftBtn = publicGifts[index].getElementsByClassName("openGiftButton")[0]; 
+        if (openGiftBtn.className == "far fa-arrow-alt-circle-down openGiftButton") {
+            openGiftBtn.className = "far fa-arrow-alt-circle-up openGiftButton";
+        } else {
+            openGiftBtn.className = "far fa-arrow-alt-circle-down openGiftButton"
+        }
+    }
+
+	// creates a selectable element with the user's link
+	var $copyText = $("<input>", {id: "foo", class: "profile-link", value: `${window.location}`});
+	// location for the $copyText to be appended to
+	var	$copyTextContainer = $(".main-content:eq(0)");
+	
+	function copyGiftListLink() {
+		$copyTextContainer.append($copyText);
+		$copyText.select();
+		document.execCommand("copy");
+		$copyTextContainer.remove($copyText);
+	}
+</script>
+{% endblock %}
