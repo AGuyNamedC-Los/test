@@ -1,6 +1,6 @@
 CREATE DATABASE giftee;
 
-CREATE TABLE users(
+create table users(
     id SERIAL,
     uuid TEXT PRIMARY KEY UNIQUE,
     role VARCHAR(20),
