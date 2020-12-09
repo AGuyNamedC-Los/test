@@ -1,0 +1,31 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "A social media-esque [website](https://gift-ee.herokuapp.com/) that allows you to manage a gift list that can be comprised of multiple items from other online stores. This gift list can also be viewed by other people who search up your username\r - Please allow a couple seconds for the website to load.",
+  "main": "index.js",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "nodemon": "^2.0.6",
+    "nunjucks": "^3.2.2",
+    "pg": "^8.5.1",
+    "uuid": "^8.3.2",
+    "valid-url": "^1.0.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AGuyNamedC-Los/test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AGuyNamedC-Los/test/issues"
+  },
+  "homepage": "https://github.com/AGuyNamedC-Los/test#readme"
+}
