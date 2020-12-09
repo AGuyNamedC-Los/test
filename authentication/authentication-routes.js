@@ -66,7 +66,7 @@ router.post("/sign_up_status", urlencodedParser, async (req, res) => {
                     RETURNING *
                     `, [uuidv4(), "temp_user", email, username, firstname, lastname, hash, emailCode, [], 0, [], 0]
                 );
-                //sendMail(email, emailCode);
+                sendMail(email, emailCode);
                 req.session.user = {role: "temp_user", firstname: firstname, lastname: lastname, email: email, username: username};
                 res.render("response.njk", {user: req.session.user, title: "Sign Up Success!", link: "/", message: "Thanks for signing up! Be sure to enter the confirmation code you received in your email to finish making your profile", buttonMsg: "BACK TO HOME PAGE"});
             } catch (err) {
